@@ -25,3 +25,9 @@ body {
   color: #fff;
   font-weight: bold;
 }
+/* app/globals.css（末尾に追加） */
+.app-name {
+  color: #fff;
+  font-weight: bold;
+  margin-right: 24px;
+}
