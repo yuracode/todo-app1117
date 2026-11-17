@@ -51,3 +51,13 @@ jobs:
       - run: npm ci
       - name: Build
         run: npm run build
+        # .github/workflows/ci.yml（build ジョブの Build ステップ）
+        env:
+          NEXT_PUBLIC_APP_NAME: ${{ vars.APP_NAME }}
+
+      - name: Secrets の練習（あとで消す）
+        run: |
+          echo "秘密の値：$DEMO_SECRET"
+          echo "文字数：${#DEMO_SECRET}"
+        env:
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
