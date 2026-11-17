@@ -32,3 +32,14 @@ test('未完了なら打ち消し線は付かない', () => {
   render(<TodoItem todo={todo} onToggle={() => {}} onDelete={() => {}} />)
   expect(screen.getByText('牛乳を買う')).toHaveStyle({ textDecoration: 'none' })
 })
+
+test('進捗スライダーが表示され、操作できる', () => {
+  const handleProgressChange = jest.fn()
+  const todo = { id: '1', text: '牛乳を買う', done: false, progress: 40 }
+  render(<TodoItem todo={todo} onToggle={() => {}} onDelete={() => {}} onProgressChange={handleProgressChange} />)
+
+  const slider = screen.getByRole('slider', { name: '牛乳を買うの進捗' })
+  expect(slider).toBeInTheDocument()
+  expect(slider).toHaveValue('40')
+  expect(screen.getByText('40%')).toBeInTheDocument()
+})

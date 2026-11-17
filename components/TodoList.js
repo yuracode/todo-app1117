@@ -1,6 +1,6 @@
 import TodoItem from './TodoItem'
 
-export default function TodoList({ todos, onToggle, onDelete, onEdit }) {
+export default function TodoList({ todos, onToggle, onDelete, onEdit, onProgressChange }) {
   if (todos.length === 0) {
     return <p>やることはありません</p>
   }
@@ -8,7 +8,14 @@ export default function TodoList({ todos, onToggle, onDelete, onEdit }) {
   return (
     <ul>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} onToggle={onToggle} onDelete={onDelete} onEdit={onEdit} />
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+          onDelete={onDelete}
+          onEdit={onEdit}
+          onProgressChange={onProgressChange}
+        />
       ))}
     </ul>
   )

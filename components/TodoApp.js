@@ -5,7 +5,7 @@ import TodoFilter from './TodoFilter'
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
 import SampleLoader from './SampleLoader'
-import { addTodo, clearDone, countDone, countRemaining, deleteTodo, editTodo, filterTodos, toggleTodo } from '@/lib/todos'
+import { addTodo, clearDone, countDone, countRemaining, deleteTodo, editTodo, filterTodos, toggleTodo, updateProgress } from '@/lib/todos'
 import { loadTodos, saveTodos } from '@/lib/storage'
 
 
@@ -33,6 +33,10 @@ export default function TodoApp() {
     setTodos(editTodo(todos, id, text))
   }
 
+  function handleProgressChange(id, progress) {
+    setTodos(updateProgress(todos, id, progress))
+  }
+
   function handleLoadSamples(texts) {
     setTodos(texts.reduce((acc, text) => addTodo(acc, text), todos))
   }
@@ -57,7 +61,13 @@ export default function TodoApp() {
       <TodoForm onAdd={handleAdd} />
       <SampleLoader onLoad={handleLoadSamples} />
       <TodoFilter value={filter} onChange={setFilter} />
-      <TodoList todos={visibleTodos} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
+      <TodoList
+        todos={visibleTodos}
+        onToggle={handleToggle}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+        onProgressChange={handleProgressChange}
+      />
       {todos.length > 0 && (
         <p>
           全 {todos.length} 件 / 完了 {doneCount} 件 / 残り {remaining} 件
